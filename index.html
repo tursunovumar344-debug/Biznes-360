@@ -1,0 +1,330 @@
+
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101d33">
+<title>BIZNES 360 | Biznes boshqaruvi</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --blue:#3478f6;
+  --dark:#101d33;
+  --bg:#f4f7fc;
+  --text:#1d2939;
+  --muted:#8995a7;
+  --border:#e8edf4;
+  --green:#16a36a;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Inter,Arial,sans-serif;background:var(--bg);color:var(--text)}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.app{display:flex;min-height:100vh}
+.sidebar{width:255px;background:var(--dark);color:white;padding:25px 16px;display:flex;flex-direction:column;flex-shrink:0}
+.brand{display:flex;align-items:center;gap:12px;padding:0 8px 35px}
+.logo{background:var(--blue);width:43px;height:43px;border-radius:12px;display:grid;place-items:center;font-size:25px;font-weight:800}
+.brand h2{font-size:17px}
+.brand small{color:#9ba9be;font-size:10px}
+.section-label{font-size:10px;color:#8594aa;margin:12px 10px;letter-spacing:1px}
+nav{display:grid;gap:6px}
+.nav{border:0;background:transparent;color:#c4cede;padding:12px;border-radius:9px;text-align:left;display:flex;gap:13px;align-items:center;font-size:13px}
+.nav:hover,.nav.active{background:#263d60;color:white}
+.nav.active{border-left:3px solid #4385ff}
+.sidebar-bottom{margin-top:auto}
+.shop{background:#1e304b;padding:14px;border-radius:10px;font-size:12px;margin-bottom:12px}
+.shop small{display:block;color:#9ba9be;margin-top:5px}
+.main{flex:1;min-width:0}
+.topbar{height:85px;background:white;border-bottom:1px solid var(--border);padding:15px 32px;display:flex;align-items:center;justify-content:space-between}
+.topbar h1{font-size:21px}
+.topbar p{font-size:12px;color:var(--muted);margin-top:5px}
+.profile{display:flex;align-items:center;gap:10px;font-size:12px}
+.avatar{width:38px;height:38px;border-radius:50%;background:#e6efff;color:var(--blue);display:grid;place-items:center;font-weight:bold}
+.content{padding:30px;max-width:1500px;margin:auto}
+.welcome{background:linear-gradient(110deg,#1e4f9b,#347cf5);color:white;padding:30px;border-radius:15px;display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}
+.welcome h2{font-size:25px;margin:12px 0}
+.welcome p{font-size:13px;opacity:.85}
+.welcome-icon{font-size:65px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:22px}
+.card,.panel{background:white;border:1px solid var(--border);border-radius:13px;padding:20px}
+.stat-icon{width:42px;height:42px;background:#eff4ff;border-radius:10px;display:grid;place-items:center;font-size:20px;margin-bottom:13px}
+.card p{font-size:12px;color:var(--muted)}
+.card h3{font-size:20px;margin-top:9px;overflow-wrap:anywhere}
+.panel{margin-bottom:20px}
+.panel-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:20px}
+.panel h3{font-size:17px}
+.panel-head p{font-size:12px;color:var(--muted);margin-top:5px}
+.primary{background:var(--blue);border:0;color:white;padding:11px 16px;border-radius:8px;font-size:12px;font-weight:600}
+.primary:hover{background:#2365dc}
+.primary:disabled{opacity:.5;cursor:not-allowed}
+.search,input,select{border:1px solid #e1e6ef;border-radius:8px;padding:12px;outline:none;font-size:12px;background:white}
+.search{width:100%;margin-bottom:16px}
+input:focus,select:focus{border-color:var(--blue)}
+.table-wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:550px;text-align:left}
+th,td{padding:14px 12px;border-bottom:1px solid var(--border);font-size:12px}
+th{background:#f8f9fc;color:var(--muted)}
+td{color:#536075}
+.green{color:var(--green);font-weight:700}
+.low{color:#df8b25;font-weight:bold}
+.danger{background:#fff0f0;color:#dc4545;border:0;padding:7px 10px;border-radius:7px;font-size:11px}
+.form-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.form-grid input,.form-grid select{width:100%}
+.product-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.product{border:1px solid var(--border);padding:18px;border-radius:12px;display:grid;gap:12px}
+.product .emoji{font-size:26px}
+.product h4{font-size:14px}
+.product p{font-size:11px;color:var(--muted)}
+.product strong{font-size:14px}
+.customer{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--border)}
+.customer strong{font-size:13px}
+.customer small{display:block;color:var(--muted);font-size:11px;margin-top:5px}
+.empty{text-align:center;color:var(--muted);padding:35px 10px;font-size:12px}
+.notice{padding:13px;background:#e8f8ef;color:#17804e;border-radius:8px;font-size:12px;margin-bottom:16px;display:flex;justify-content:space-between}
+.notice button{border:0;background:none;color:inherit}
+.hidden{display:none!important}
+@media(max-width:1050px){.stats{grid-template-columns:repeat(2,1fr)}.product-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){
+ .app{display:block}
+ .sidebar{width:100%;min-height:auto;padding:14px}
+ .brand{padding:0 5px 14px}
+ .section-label,.sidebar-bottom{display:none}
+ nav{display:flex;overflow-x:auto;padding-bottom:5px}
+ .nav{white-space:nowrap;width:auto;flex-shrink:0;padding:10px;font-size:11px}
+ .topbar{height:auto;padding:17px}
+ .topbar h1{font-size:18px}
+ .profile{display:none}
+ .content{padding:15px}
+ .welcome{padding:22px}
+ .welcome h2{font-size:20px}
+ .welcome-icon{font-size:40px}
+ .stats{gap:10px}
+ .card{padding:14px}
+ .card h3{font-size:14px}
+ .panel{padding:15px}
+ .form-grid,.product-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand">
+    <div class="logo">B</div>
+    <div><h2>BIZNES 360</h2><small>BUSINESS ECOSYSTEM</small></div>
+  </div>
+  <div class="section-label">ASOSIY MENYU</div>
+  <nav id="menu"></nav>
+  <div class="sidebar-bottom">
+    <div class="shop">🏪 Mening do'konim<small>Biznes egasi</small></div>
+    <button class="nav" onclick="go('settings')">⚙️ Sozlamalar</button>
+  </div>
+</aside>
+
+<main class="main">
+<header class="topbar">
+  <div><h1 id="pageTitle">Bosh sahifa</h1><p>Biznesingizni bitta joydan boshqaring</p></div>
+  <div class="profile"><div class="avatar">U</div><div><b>Biznes egasi</b><small>Administrator</small></div></div>
+</header>
+<div class="content">
+  <div id="notice" class="notice hidden"></div>
+  <section id="view"></section>
+</div>
+</main>
+</div>
+
+<script>
+const menuItems=[
+ ['dashboard','⌂','Bosh sahifa'],
+ ['sales','🛒','Savdo'],
+ ['products','📦','Mahsulotlar'],
+ ['customers','👥','Mijozlar'],
+ ['orders','📋','Buyurtmalar'],
+ ['reports','📊','Hisobotlar'],
+ ['settings','⚙️','Sozlamalar']
+];
+
+const initialProducts=[
+ {id:1,name:'Premium futbolka',category:'Kiyim',price:120000,cost:75000,stock:35},
+ {id:2,name:'Sport oyoq kiyimi',category:'Poyabzal',price:350000,cost:240000,stock:12},
+ {id:3,name:'Klassik ko‘ylak',category:'Kiyim',price:220000,cost:140000,stock:20},
+ {id:4,name:'Qo‘l soati',category:'Aksessuar',price:180000,cost:100000,stock:8}
+];
+
+function load(key,fallback){
+ try{
+  const value=localStorage.getItem(key);
+  return value===null?fallback:JSON.parse(value);
+ }catch{return fallback;}
+}
+
+let products=load('b360_products',initialProducts);
+let customers=load('b360_customers',[]);
+let sales=load('b360_sales',[]);
+let orders=load('b360_orders',[]);
+let page='dashboard';
+let search='';
+
+const money=n=>new Intl.NumberFormat('uz-UZ').format(n)+' so‘m';
+const save=()=>{
+ localStorage.setItem('b360_products',JSON.stringify(products));
+ localStorage.setItem('b360_customers',JSON.stringify(customers));
+ localStorage.setItem('b360_sales',JSON.stringify(sales));
+ localStorage.setItem('b360_orders',JSON.stringify(orders));
+};
+
+function notify(text){
+ const el=document.getElementById('notice');
+ el.classList.remove('hidden');
+ el.innerHTML=`<span>${text}</span><button onclick="this.parentElement.classList.add('hidden')">✕</button>`;
+}
+
+function go(id){
+ page=id;
+ document.getElementById('pageTitle').textContent=menuItems.find(x=>x[0]===id)?.[2]||'BIZNES 360';
+ renderMenu();
+ render();
+}
+
+function renderMenu(){
+ document.getElementById('menu').innerHTML=menuItems.map(x=>
+ `<button class="nav ${page===x[0]?'active':''}" onclick="go('${x[0]}')"><span>${x[1]}</span>${x[2]}</button>`
+ ).join('');
+}
+
+function stat(icon,label,value){
+ return `<div class="card"><div class="stat-icon">${icon}</div><p>${label}</p><h3>${value}</h3></div>`;
+}
+
+function render(){
+ const view=document.getElementById('view');
+ const revenue=sales.reduce((s,x)=>s+x.total,0);
+ const profit=sales.reduce((s,x)=>s+x.profit,0);
+ const stock=products.reduce((s,x)=>s+x.stock,0);
+
+ if(page==='dashboard'){
+ view.innerHTML=`
+ <div class="welcome"><div><small>BIZNES 360</small><h2>Xush kelibsiz! 👋</h2><p>Bugun biznesingiz qanday ishlayotganini ko‘ring.</p></div><div class="welcome-icon">📈</div></div>
+ <div class="stats">
+ ${stat('💰','Jami tushum',money(revenue))}
+ ${stat('📈','Taxminiy foyda',money(profit))}
+ ${stat('📦','Mahsulot qoldig‘i',stock+' dona')}
+ ${stat('👥','Mijozlar',customers.length+' ta')}
+ </div>
+ <div class="panel"><div class="panel-head"><div><h3>So‘nggi savdolar</h3><p>Amalga oshirilgan savdolar</p></div><button class="primary" onclick="go('sales')">Savdo qilish</button></div>
+ ${sales.length?tableSales():`<div class="empty">Hozircha savdolar mavjud emas.</div>`}</div>`;
+ }
+
+ if(page==='products'){
+ view.innerHTML=`
+ <div class="panel">
+ <div class="panel-head"><div><h3>Mahsulotlar</h3><p>Mahsulotlaringizni boshqaring</p></div><button class="primary" onclick="document.getElementById('productForm').classList.toggle('hidden')">+ Qo‘shish</button></div>
+ <form id="productForm" class="form-grid hidden" onsubmit="addProduct(event)">
+ <input name="name" placeholder="Mahsulot nomi" required maxlength="100">
+ <input name="category" placeholder="Kategoriya" required>
+ <input name="price" type="number" min="1" placeholder="Sotuv narxi" required>
+ <input name="cost" type="number" min="0" placeholder="Tannarxi" required>
+ <input name="stock" type="number" min="0" placeholder="Miqdori" required>
+ <button class="primary">Saqlash</button></form>
+ <input class="search" placeholder="Mahsulot qidirish..." value="${escapeHTML(search)}" oninput="search=this.value;render()">
+ <div class="table-wrap">${tableProducts()}</div>
+ </div>`;
+ }
+
+ if(page==='sales'){
+ view.innerHTML=`<div class="panel"><div class="panel-head"><div><h3>Savdo</h3><p>Mahsulotni tanlab sotuvni amalga oshiring</p></div></div><div class="product-grid">${products.map(p=>`
+ <div class="product"><div class="emoji">📦</div><h4>${escapeHTML(p.name)}</h4><p>${p.stock} dona qoldi</p><strong>${money(p.price)}</strong><button class="primary" ${p.stock<1?'disabled':''} onclick="sell(${p.id})">${p.stock?'Sotish':'Tugagan'}</button></div>`).join('')||'<div class="empty">Mahsulot yo‘q.</div>'}</div></div>
+ <div class="panel"><h3>So‘nggi savdolar</h3>${sales.length?tableSales():'<div class="empty">Savdo mavjud emas.</div>'}</div>`;
+ }
+
+ if(page==='customers'){
+ view.innerHTML=`<div class="panel"><div class="panel-head"><div><h3>Mijozlar</h3><p>Mijozlar ro‘yxati</p></div></div>
+ <form class="form-grid" onsubmit="addCustomer(event)"><input name="name" placeholder="Mijoz ismi" required><input name="phone" placeholder="Telefon raqami" required><button class="primary">+ Mijoz qo‘shish</button></form>
+ ${customers.map(c=>`<div class="customer"><div class="avatar">${escapeHTML(c.name[0].toUpperCase())}</div><div><strong>${escapeHTML(c.name)}</strong><small>${escapeHTML(c.phone)}</small></div></div>`).join('')||'<div class="empty">Hozircha mijozlar yo‘q.</div>'}</div>`;
+ }
+
+ if(page==='orders'){
+ view.innerHTML=`<div class="panel"><h3>Buyurtmalar</h3>${orders.length?orders.map(o=>`<div class="customer"><div>📋</div><div><strong>${escapeHTML(o.name)}</strong><small>${money(o.total)} · ${escapeHTML(o.status)}</small></div></div>`).join(''):'<div class="empty">Hozircha buyurtmalar mavjud emas. Onlayn do‘kon keyingi bosqichda ulanadi.</div>'}</div>`;
+ }
+
+ if(page==='reports'){
+ view.innerHTML=`<div class="stats">
+ ${stat('💰','Jami tushum',money(revenue))}
+ ${stat('📈','Hisoblangan foyda',money(profit))}
+ ${stat('🛒','Savdolar soni',sales.length+' ta')}
+ ${stat('📦','Mahsulot turlari',products.length+' xil')}
+ </div><div class="panel"><h3>Ombor holati</h3>${tableProducts()}</div>`;
+ }
+
+ if(page==='settings'){
+ view.innerHTML=`<div class="panel"><h3>Sozlamalar</h3><br><p>Platforma: BIZNES 360</p><br><p>Til: O‘zbekcha</p><br><p>Valyuta: UZS</p><br><button class="danger" onclick="resetData()">Demo ma’lumotlarini tiklash</button></div>`;
+ }
+}
+
+function escapeHTML(value){
+ return String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function tableProducts(){
+ return `<table><thead><tr><th>Mahsulot</th><th>Kategoriya</th><th>Narxi</th><th>Qoldiq</th><th>Amal</th></tr></thead><tbody>
+ ${products.filter(p=>p.name.toLowerCase().includes(search.toLowerCase())).map(p=>`
+ <tr><td><b>${escapeHTML(p.name)}</b></td><td>${escapeHTML(p.category)}</td><td>${money(p.price)}</td><td class="${p.stock<=5?'low':''}">${p.stock} dona</td><td><button class="danger" onclick="removeProduct(${p.id})">O‘chirish</button></td></tr>`).join('')||'<tr><td colspan="5">Mahsulot topilmadi</td></tr>'}
+ </tbody></table>`;
+}
+
+function tableSales(){
+ return `<div class="table-wrap"><table><thead><tr><th>Mahsulot</th><th>Sana</th><th>Summa</th><th>Foyda</th></tr></thead><tbody>
+ ${sales.slice().reverse().slice(0,20).map(s=>`<tr><td>${escapeHTML(s.name)}</td><td>${new Date(s.date).toLocaleDateString('uz-UZ')}</td><td>${money(s.total)}</td><td class="green">${money(s.profit)}</td></tr>`).join('')}
+ </tbody></table></div>`;
+}
+
+function addProduct(e){
+ e.preventDefault();
+ const f=new FormData(e.target);
+ const name=String(f.get('name')).trim();
+ const category=String(f.get('category')).trim();
+ const price=Number(f.get('price')),cost=Number(f.get('cost')),stock=Number(f.get('stock'));
+ if(!name||!category||!Number.isSafeInteger(price)||price<=0||!Number.isSafeInteger(cost)||cost<0||!Number.isSafeInteger(stock)||stock<0){
+ alert('Ma’lumotlarni to‘g‘ri kiriting.');return;
+ }
+ products.push({id:Date.now(),name,category,price,cost,stock});
+ save();render();notify('Mahsulot muvaffaqiyatli qo‘shildi.');
+}
+
+function removeProduct(id){
+ if(!confirm('Mahsulotni o‘chirmoqchimisiz?'))return;
+ products=products.filter(p=>p.id!==id);save();render();notify('Mahsulot o‘chirildi.');
+}
+
+function sell(id){
+ const p=products.find(x=>x.id===id);
+ if(!p||p.stock<1){alert('Mahsulot mavjud emas.');return;}
+ if(!confirm(p.name+' mahsulotini sotishni tasdiqlaysizmi?'))return;
+ p.stock--;
+ sales.push({id:Date.now(),name:p.name,total:p.price,profit:p.price-p.cost,date:new Date().toISOString()});
+ save();render();notify('Savdo muvaffaqiyatli amalga oshirildi.');
+}
+
+function addCustomer(e){
+ e.preventDefault();
+ const f=new FormData(e.target);
+ const name=String(f.get('name')).trim(),phone=String(f.get('phone')).trim();
+ if(!name||!phone)return;
+ customers.push({id:Date.now(),name,phone});
+ save();render();notify('Mijoz qo‘shildi.');
+}
+
+function resetData(){
+ if(!confirm('Barcha demo ma’lumotlarini tiklaysizmi?'))return;
+ products=initialProducts.map(p=>({...p}));
+ customers=[];sales=[];orders=[];
+ search='';save();render();notify('Demo ma’lumotlari tiklandi.');
+}
+
+renderMenu();
+render();
+</script>
+</body>
+</html>
